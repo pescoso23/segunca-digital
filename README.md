@@ -1,0 +1,1 @@
+# segunca-digital
