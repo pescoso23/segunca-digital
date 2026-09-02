@@ -1,60 +1,364 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Senhas</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Senha</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #b3108f, #1607ee);
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 500px;
+      background: #23353f;
+      border: 1px solid #61c008;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(255, 0, 157, 0.25);
+      color: #e5ebe8;
+    }
+
+    .topo-info {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .topo-info h2 {
+      color: #2b1cb1;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .topo-info p {
+      color: #202ab4;
+      font-size: 0.95rem;
+      line-height: 1.6;      font-weight: 700;    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #000000;
+      background: #1c1d1f;
+      color: #e21d1d;
+      font-size: 1rem;
+    }
+
+    .btn-gerar {
+      width: 150px;
+      background: #00ccff;
+      color: #000000;
+      flex-shrink: 0;
+    }
+
+    .controle-tamanho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      background: rgba(231, 110, 10, 0.08);
+      padding: 12px 14px;
+      border-radius: 10px;
+    }
+
+    .controle-tamanho .botoes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .controle-tamanho button {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      font-size: 1.2rem;
+      line-height: 1;
+      border-radius: 8px;
+    }
+
+    .opcoes {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #e6080814;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.98rem;
+    }
+
+    .checkbox-item input {
+      width: 18px;
+      height: 18px;
+      accent-color: #030607;
+    }
+
+    button {
+      width: 100%;
+      background: #06e098;
+      color: #070707;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.96;
+      transform: translateY(-1px);
+    }
+
+    .resultado {
+      margin-top: 24px;
+    }
+
+    .status {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #115cdf;
+    }
+
+    .barra {
+      width: 100%;
+      height: 12px;
+      background: #ff0000;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .barra-preenchimento {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: #010ca5;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <div class="conteudo-titulo">
-      <h1 class="titulo-principal">Gerador de Senhas</h1>
-      <p class="subtitulo">Crie senhas seguras e aleatórias</p>
+  <div class="card">
+    <div class="topo-info">
+      <h2>3L</h2>
+      <p>Nathan Antônio Fagundes Rodrigues N°27</p>
+      <p>Yasmin Niquele Littig Mugnaini N°33</p>
     </div>
 
-    <div class="conteudo-senha">
-      <form id="formulario-senha">
-        <label for="campo-senha">Sua Senha:</label>
-        <div class="container-senha">
-          <input 
-            type="text" 
-            id="campo-senha" 
-            readonly
-            aria-label="Senha gerada">
-          <button 
-            type="button"
-            class="btn-copiar" 
-            onclick="copiarSenha()" 
-            title="Copiar para área de transferência"
-            aria-label="Copiar">
-            📋
-          </button>
-        </div>
+    <h1>Gerador de Senha</h1>
 
-        <div class="container-controles">
-          <button 
-            type="button"
-            class="btn-tamanho" 
-            onclick="diminuiTamanho()"
-            aria-label="Diminuir tamanho da senha">
-            −
-          </button>
-          <span id="numero-senha" class="numero-tamanho" aria-live="polite">8</span>
-          <button 
-            type="button"
-            class="btn-tamanho" 
-            onclick="aumentaTamanho()"
-            aria-label="Aumentar tamanho da senha">
-            +
-          </button>
-        </div>
-
-        <button type="button" class="btn-gerar" onclick="geraSenha()">Gerar Nova Senha</button>
-      </form>
+    <label for="senha">Digite sua senha</label>
+    <div class="input-group">
+      <input type="text" id="senha" placeholder="Digite sua senha" />
+      <button type="button" class="btn-gerar" id="gerarSenha">Gerar</button>
     </div>
-  </main>
 
-  <script src="main.js"></script>
+    <div class="controle-tamanho">
+      <span>Tamanho</span>
+      <div class="botoes">
+        <button type="button" id="diminuirTamanho">-</button>
+        <strong id="valorTamanho">12</strong>
+        <button type="button" id="aumentarTamanho">+</button>
+      </div>
+    </div>
+
+    <div class="opcoes">
+      <label class="checkbox-item">
+        <input type="checkbox" id="maiusculas" checked />
+        <span>Maiúsculas</span>
+      </label>
+
+      <label class="checkbox-item">
+        <input type="checkbox" id="minusculas" checked />
+        <span>Minúsculas</span>
+      </label>
+
+      <label class="checkbox-item">
+        <input type="checkbox" id="numeros" checked />
+        <span>Números (1-9)</span>
+      </label>
+
+      <label class="checkbox-item">
+        <input type="checkbox" id="especiais" checked />
+        <span>Caracteres especiais (!@#$%&*)</span>
+      </label>
+    </div>
+
+    <button type="button" id="validarSenha">Gerar senha</button>
+
+    <div class="resultado">
+      <span class="status" id="status">Aguardando senha</span>
+      <div class="barra">
+        <div class="barra-preenchimento" id="barraForca"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const senhaInput = document.getElementById("senha");
+    const checkboxMaiusculas = document.getElementById("maiusculas");
+    const checkboxMinusculas = document.getElementById("minusculas");
+    const checkboxNumeros = document.getElementById("numeros");
+    const checkboxEspeciais = document.getElementById("especiais");
+    const botaoValidar = document.getElementById("validarSenha");
+    const botaoGerar = document.getElementById("gerarSenha");
+    const botaoDiminuir = document.getElementById("diminuirTamanho");
+    const botaoAumentar = document.getElementById("aumentarTamanho");
+    const valorTamanho = document.getElementById("valorTamanho");
+    const statusTexto = document.getElementById("status");
+    const barraForca = document.getElementById("barraForca");
+
+    let tamanhoSenha = 12;
+
+    function atualizarTamanhoSenha() {
+      valorTamanho.textContent = tamanhoSenha;
+    }
+
+    function gerarSenhaAleatoria() {
+      const letrasMaiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const letrasMinusculas = "abcdefghijklmnopqrstuvwxyz";
+      const numeros = "123456789";
+      const especiais = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+      let caracteresDisponiveis = "";
+
+      if (checkboxMaiusculas.checked) caracteresDisponiveis += letrasMaiusculas;
+      if (checkboxMinusculas.checked) caracteresDisponiveis += letrasMinusculas;
+      if (checkboxNumeros.checked) caracteresDisponiveis += numeros;
+      if (checkboxEspeciais.checked) caracteresDisponiveis += especiais;
+
+      let senha = "";
+
+      for (let i = 0; i < tamanhoSenha; i++) {
+        const indice = Math.floor(Math.random() * caracteresDisponiveis.length);
+        senha += caracteresDisponiveis[indice];
+      }
+
+      senhaInput.value = senha;
+      validarSenha();
+    }
+
+    function verificarForcaSenha(senha) {
+      const regrasAtivas = {
+        maiusculas: checkboxMaiusculas.checked,
+        minusculas: checkboxMinusculas.checked,
+        numeros: checkboxNumeros.checked,
+        especiais: checkboxEspeciais.checked,
+      };
+
+      let pontuacao = 0;
+
+      if (senha.length >= 12) pontuacao += 1;
+      if (senha.length >= 8) pontuacao += 1;
+      if (/[A-Z]/.test(senha) && regrasAtivas.maiusculas) pontuacao += 1;
+      if (/[a-z]/.test(senha) && regrasAtivas.minusculas) pontuacao += 1;
+      if (/[1-9]/.test(senha) && regrasAtivas.numeros) pontuacao += 1;
+      if (/[^A-Za-z0-9]/.test(senha) && regrasAtivas.especiais) pontuacao += 1;
+
+      const requisitosAtendidos = [
+        !regrasAtivas.maiusculas || /[A-Z]/.test(senha),
+        !regrasAtivas.minusculas || /[a-z]/.test(senha),
+        !regrasAtivas.numeros || /[1-9]/.test(senha),
+        !regrasAtivas.especiais || /[^A-Za-z0-9]/.test(senha),
+      ].every(Boolean);
+
+      if (senha.length === 0) {
+        return { forca: "Aguardando senha", cor: "#9ca3af", largura: 0 };
+      }
+
+      if (pontuacao >= 5 && requisitosAtendidos) {
+        return { forca: "Forte", cor: "#22c55e", largura: 100 };
+      }
+
+      if (pontuacao >= 3 && requisitosAtendidos) {
+        return { forca: "Médio", cor: "#f59e0b", largura: 65 };
+      }
+
+      return { forca: "Fraco", cor: "#ef4444", largura: 30 };
+    }
+
+    function validarSenha() {
+      const senha = senhaInput.value;
+      const resultado = verificarForcaSenha(senha);
+
+      statusTexto.textContent = resultado.forca;
+      statusTexto.style.color = resultado.cor;
+      barraForca.style.width = `${resultado.largura}%`;
+      barraForca.style.background = resultado.cor;
+    }
+
+    botaoDiminuir.addEventListener("click", () => {
+      if (tamanhoSenha > 6) {
+        tamanhoSenha--;
+        atualizarTamanhoSenha();
+        gerarSenhaAleatoria();
+      }
+    });
+
+    botaoAumentar.addEventListener("click", () => {
+      if (tamanhoSenha < 20) {
+        tamanhoSenha++;
+        atualizarTamanhoSenha();
+        gerarSenhaAleatoria();
+      }
+    });
+
+    botaoValidar.addEventListener("click", validarSenha);
+    botaoGerar.addEventListener("click", gerarSenhaAleatoria);
+    senhaInput.addEventListener("input", validarSenha);
+
+    atualizarTamanhoSenha();
+  </script>
 </body>
 </html>
