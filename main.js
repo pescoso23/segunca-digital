@@ -1,3 +1,9 @@
+/*
+INTEGRANTES:
+Nathan Antônio Fagundes Rodrigues
+Yasmin Niquele Littig Mugnaini
+TURMA: 3ª Série L
+*/
 const senhaInput = document.getElementById("senha");
 const checkboxMaiusculas = document.getElementById("maiusculas");
 const checkboxMinusculas = document.getElementById("minusculas");
